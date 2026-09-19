@@ -22,7 +22,14 @@ export const PATTERNS = [
   'e5_article',             // a と an
   'e5_verb',                // 一般動詞の文（三単現は扱わない）
   'e5_plural',              // 複数形のつづり
-  'e5_order'                // 語順
+  'e5_order',               // 語順
+
+  // --- 中3 ---
+  'j3_compare',             // 比較級・最上級
+  'j3_passive',             // 受動態
+  'j3_perfect',             // 現在完了の形
+  'j3_time',                // for / since、過去形との使い分け
+  'j3_relative'             // 関係代名詞
 ];
 
 /** 類題を同じ形で出すための細分。数学版の form と同じ役割。 */
@@ -58,7 +65,18 @@ export const FORMS = [
   'e5_article_single',   // This is ___ apple.
   'e5_verb_base',        // I ___ tennis.
   'e5_plural_s', 'e5_plural_es', 'e5_plural_ies', 'e5_plural_ves', 'e5_plural_irregular',
-  'e5_order_svo'         // 並べ替え
+  'e5_order_svo',        // 並べ替え
+
+  // 中3
+  'j3_comparative',      // Ken is ___ than Yuki.
+  'j3_superlative',      // Ken is the ___ in my class.
+  'j3_passive_be',       // A letter ___ by Ken.
+  'j3_perfect_have',     // Ken ___ just made lunch.
+  'j3_perfect_pp',       // Ken has just ___ lunch.
+  'j3_for_since',        // ... English ___ three years.
+  'j3_past_marker',      // Ken ___ lunch an hour ago.
+  'j3_relative_who',     // I have a friend ___ plays tennis.
+  'j3_relative_which'    // This is the book ___ Ken reads.
 ];
 
 /** 入力方式。 */
@@ -76,6 +94,19 @@ export function toSentence(words) {
   const head = words[0];
   const first = head.charAt(0).toUpperCase() + head.slice(1);
   return [first, ...words.slice(1)].join(' ') + '.';
+}
+
+/**
+ * 文の途中に置く語にする。
+ *
+ * 主語の一覧は文頭に置く前提で大文字から書いてあるが、
+ * than や by のあとに来るときは小文字にしないと英文として誤りになる。
+ * I と人の名前は、どこに置いても大文字のままにする。
+ */
+export function midSentence(text) {
+  if (text === 'I') return text;
+  if (/^(Ken|Yuki)/.test(text)) return text;
+  return text.charAt(0).toLowerCase() + text.slice(1);
 }
 
 /**

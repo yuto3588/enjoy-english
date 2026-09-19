@@ -270,6 +270,142 @@ const TEMPLATES = {
     '日本語は「だれが → なにを → どうする」の順',
     '英語は「だれが → どうする → なにを」の順',
     `${f.subject} → ${f.base} → ${f.obj}`
+  ],
+
+  // --- 中3 比較 ---
+
+  'j3_compare:superlative_with_than': (f) => [
+    `${f.superlative} は「いちばん〜」の形`,
+    'than があるので、2つを比べる形にする',
+    `答えは ${f.comparative}`
+  ],
+  'j3_compare:comparative_for_best': (f) => [
+    `${f.comparative} は2つを比べる形`,
+    'the があって「いちばん」なので、最上級にする',
+    `答えは ${f.superlative}`
+  ],
+  'j3_compare:compare_spelling': (f, picked) => [
+    `${picked} という形にはならない`,
+    f.usesMore
+      ? `${f.word} は長い語なので、形は変えずに more / most を前に置く`
+      : `${f.word} は短い語なので、more ではなく -er / -est を付ける`,
+    `答えは ${picked.includes('most') || picked === `${f.word}est` ? f.superlative : f.comparative}`
+  ],
+  'j3_compare:no_change': (f, picked) => [
+    `${picked} はもとの形のまま`,
+    '比べる文では形を変える',
+    `${f.word} → ${f.comparative} / ${f.superlative}`
+  ],
+
+  // --- 中3 受動態 ---
+
+  'j3_passive:ing_used': (f) => [
+    'ing は「いましているところ」の形',
+    `「される」は be動詞 + 過去分詞。${f.base} の過去分詞は ${f.pp}`,
+    `答えは ${f.be} ${f.pp}`
+  ],
+  'j3_passive:active_used': (f) => [
+    `${f.subject} は「する」側ではなく「される」側`,
+    `be動詞 + 過去分詞にする`,
+    `答えは ${f.be} ${f.pp}`
+  ],
+  'j3_passive:be_number': (f) => [
+    `${f.wrongBe} ではなく ${f.be}`,
+    f.plural ? `${f.subject} は2つ以上を指している` : `${f.subject} は1つを指している`,
+    `答えは ${f.be} ${f.pp}`
+  ],
+
+  // --- 中3 現在完了 ---
+
+  'j3_perfect:have_has': (f) => [
+    `${f.other} ではなく ${f.have}`,
+    `${f.subject} には ${f.have} を使う`,
+    `答えは ${f.have}`
+  ],
+  'j3_perfect:be_not_have': (f) => [
+    'be動詞 のあとに過去分詞を置くと「される」の意味になる',
+    '「ちょうど〜したところ」は have / has + 過去分詞',
+    `答えは ${f.have}`
+  ],
+  'j3_perfect:did_not_have': (f) => [
+    'did のあとは原形が来る',
+    `ここは ${f.pp} が続いているので、have / has が入る`,
+    `答えは ${f.have}`
+  ],
+  'j3_perfect:third_for_pp': (f) => [
+    `${f.third} は he / she の文で使う形`,
+    `${f.have} のあとは過去分詞。${f.base} の過去分詞は ${f.pp}`,
+    `答えは ${f.pp}`
+  ],
+  'j3_perfect:past_for_pp': (f) => [
+    `${f.past} は過去形`,
+    `${f.have} のあとは過去分詞。${f.base} の過去分詞は ${f.pp}`,
+    `答えは ${f.pp}`
+  ],
+  'j3_perfect:base_for_pp': (f) => [
+    `${f.base} はもとの形のまま`,
+    `${f.have} のあとは過去分詞に変える`,
+    `答えは ${f.pp}`
+  ],
+  'j3_perfect:ing_for_pp': (f) => [
+    'ing が付くのは be動詞 のあと',
+    `${f.have} のあとは過去分詞`,
+    `答えは ${f.pp}`
+  ],
+
+  // --- 中3 for / since と過去形 ---
+
+  'j3_time:for_since': (f) => [
+    f.kind === 'for'
+      ? `since は「いつから始まったか」を言うときに使う`
+      : `for は「どれくらい続いたか」を言うときに使う`,
+    f.kind === 'for'
+      ? `${f.duration} は続いた長さなので for`
+      : `${f.duration} は始まった時なので since`,
+    `答えは ${f.kind}`
+  ],
+  'j3_time:from_not_used': (f) => [
+    'from は「どこから」を表すときに使う',
+    f.kind === 'for' ? '長さには for' : '始まった時には since',
+    `答えは ${f.kind}`
+  ],
+  'j3_time:perfect_with_ago': (f) => [
+    'an hour ago は、いつのことかをはっきり指している',
+    '時がはっきり決まっている文には現在完了を使わない',
+    `答えは ${f.past}`
+  ],
+  'j3_time:base_for_past': (f) => [
+    `${f.base} はもとの形のまま`,
+    'an hour ago があるので過去形にする',
+    `答えは ${f.past}`
+  ],
+  'j3_time:ing_for_past': (f) => [
+    'ing が付くのは be動詞 のあと',
+    'an hour ago があるので過去形にする',
+    `答えは ${f.past}`
+  ],
+
+  // --- 中3 関係代名詞 ---
+
+  'j3_relative:which_for_person': (f) => [
+    `前に来るのは ${f.noun}。人を指している`,
+    'which は人以外を説明するときに使う',
+    '答えは who'
+  ],
+  'j3_relative:who_for_thing': (f) => [
+    `前に来るのは ${f.noun}。人ではない`,
+    'who は人を説明するときに使う',
+    '答えは which'
+  ],
+  'j3_relative:whose_needs_noun': (f) => [
+    'whose は「〜の」の意味で、うしろに名詞が要る',
+    f.isPerson ? '人を説明するときは who' : '人以外を説明するときは which',
+    `答えは ${f.isPerson ? 'who' : 'which'}`
+  ],
+  'j3_relative:what_not_relative': (f) => [
+    'what の前には、説明される名詞を置かない',
+    f.isPerson ? `${f.noun} を説明するので who` : `${f.noun} を説明するので which`,
+    `答えは ${f.isPerson ? 'who' : 'which'}`
   ]
 };
 

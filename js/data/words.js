@@ -60,37 +60,41 @@ export const NOUNS = [
  * obj は目的語。文が不自然にならないよう必ず添える。
  * ja は日本語の述部（objJa につなげてそのまま文になる形）。
  */
-// ja       … 「〜します」（ふつうの文）
-// jaDict   … 辞書形。「〜することができます」を作るのに使う
-// jaIng    … 「〜しています」（いましていること）
-// stative  … いましていることを言えない動詞（like, have）。進行形の問題に使わない
+// ja        … 「〜します」（ふつうの文）
+// jaDict    … 辞書形。「〜することができます」を作るのに使う
+// jaIng     … 「〜しています」（いましていること）
+// stative   … いましていることを言えない動詞（like, have）。進行形の問題に使わない
+// pp        … 過去分詞。中3の受動態・現在完了で使う
+// jaPassive … 「〜されます」。これがある動詞だけ受動態の問題に使う
+//             （「テニスはケンによってされます」のような文を作らないため）
+// objPlural … 目的語が複数（受動態の主語にしたとき are になる）
 export const VERBS = [
   // 三単現 +s
-  { base: 'play', third: 'plays', ing: 'playing', past: 'played', obj: 'tennis', objJa: 'テニスを', ja: 'します', jaDict: 'する', jaIng: 'しています', group: 's', ingGroup: 'plain' },
-  { base: 'like', third: 'likes', ing: 'liking', past: 'liked', obj: 'music', objJa: '音楽が', ja: '好きです', jaDict: '好きである', jaIng: '好きです', group: 's', ingGroup: 'drop_e', stative: true },
-  { base: 'use', third: 'uses', ing: 'using', past: 'used', obj: 'a computer', objJa: 'コンピュータを', ja: '使います', jaDict: '使う', jaIng: '使っています', group: 's', ingGroup: 'drop_e' },
-  { base: 'make', third: 'makes', ing: 'making', past: 'made', obj: 'lunch', objJa: '昼食を', ja: '作ります', jaDict: '作る', jaIng: '作っています', group: 's', ingGroup: 'drop_e' },
-  { base: 'write', third: 'writes', ing: 'writing', past: 'wrote', obj: 'a letter', objJa: '手紙を', ja: '書きます', jaDict: '書く', jaIng: '書いています', group: 's', ingGroup: 'drop_e' },
-  { base: 'help', third: 'helps', ing: 'helping', past: 'helped', obj: 'my mother', objJa: '私の母を', ja: '手伝います', jaDict: '手伝う', jaIng: '手伝っています', group: 's', ingGroup: 'plain' },
-  { base: 'sing', third: 'sings', ing: 'singing', past: 'sang', obj: 'a song', objJa: '歌を', ja: '歌います', jaDict: '歌う', jaIng: '歌っています', group: 's', ingGroup: 'plain' },
-  { base: 'walk', third: 'walks', ing: 'walking', past: 'walked', obj: 'to the park', objJa: '公園まで', ja: '歩きます', jaDict: '歩く', jaIng: '歩いています', group: 's', ingGroup: 'plain' },
-  { base: 'read', third: 'reads', ing: 'reading', past: 'read', obj: 'books', objJa: '本を', ja: '読みます', jaDict: '読む', jaIng: '読んでいます', group: 's', ingGroup: 'plain' },
-  { base: 'run', third: 'runs', ing: 'running', past: 'ran', obj: 'fast', objJa: '速く', ja: '走ります', jaDict: '走る', jaIng: '走っています', group: 's', ingGroup: 'double' },
-  { base: 'swim', third: 'swims', ing: 'swimming', past: 'swam', obj: 'well', objJa: '上手に', ja: '泳ぎます', jaDict: '泳ぐ', jaIng: '泳いでいます', group: 's', ingGroup: 'double' },
+  { base: 'play', third: 'plays', ing: 'playing', past: 'played', pp: 'played', obj: 'tennis', objJa: 'テニスを', ja: 'します', jaDict: 'する', jaIng: 'しています', group: 's', ingGroup: 'plain' },
+  { base: 'like', third: 'likes', ing: 'liking', past: 'liked', pp: 'liked', obj: 'music', objJa: '音楽が', ja: '好きです', jaDict: '好きである', jaIng: '好きです', group: 's', ingGroup: 'drop_e', stative: true },
+  { base: 'use', third: 'uses', ing: 'using', past: 'used', pp: 'used', obj: 'a computer', objJa: 'コンピュータを', ja: '使います', jaDict: '使う', jaIng: '使っています', jaPassive: '使われます', group: 's', ingGroup: 'drop_e' },
+  { base: 'make', third: 'makes', ing: 'making', past: 'made', pp: 'made', obj: 'lunch', objJa: '昼食を', ja: '作ります', jaDict: '作る', jaIng: '作っています', jaPassive: '作られます', group: 's', ingGroup: 'drop_e' },
+  { base: 'write', third: 'writes', ing: 'writing', past: 'wrote', pp: 'written', obj: 'a letter', objJa: '手紙を', ja: '書きます', jaDict: '書く', jaIng: '書いています', jaPassive: '書かれます', group: 's', ingGroup: 'drop_e' },
+  { base: 'help', third: 'helps', ing: 'helping', past: 'helped', pp: 'helped', obj: 'my mother', objJa: '私の母を', ja: '手伝います', jaDict: '手伝う', jaIng: '手伝っています', group: 's', ingGroup: 'plain' },
+  { base: 'sing', third: 'sings', ing: 'singing', past: 'sang', pp: 'sung', obj: 'a song', objJa: '歌を', ja: '歌います', jaDict: '歌う', jaIng: '歌っています', jaPassive: '歌われます', group: 's', ingGroup: 'plain' },
+  { base: 'walk', third: 'walks', ing: 'walking', past: 'walked', pp: 'walked', obj: 'to the park', objJa: '公園まで', ja: '歩きます', jaDict: '歩く', jaIng: '歩いています', group: 's', ingGroup: 'plain' },
+  { base: 'read', third: 'reads', ing: 'reading', past: 'read', pp: 'read', obj: 'books', objJa: '本を', ja: '読みます', jaDict: '読む', jaIng: '読んでいます', jaPassive: '読まれます', objPlural: true, group: 's', ingGroup: 'plain' },
+  { base: 'run', third: 'runs', ing: 'running', past: 'ran', pp: 'run', obj: 'fast', objJa: '速く', ja: '走ります', jaDict: '走る', jaIng: '走っています', group: 's', ingGroup: 'double' },
+  { base: 'swim', third: 'swims', ing: 'swimming', past: 'swam', pp: 'swum', obj: 'well', objJa: '上手に', ja: '泳ぎます', jaDict: '泳ぐ', jaIng: '泳いでいます', group: 's', ingGroup: 'double' },
 
   // 三単現 +es（s, x, ch, sh, o で終わる）
-  { base: 'go', third: 'goes', ing: 'going', past: 'went', obj: 'to school', objJa: '学校へ', ja: '行きます', jaDict: '行く', jaIng: '行っています', group: 'es', ingGroup: 'plain' },
-  { base: 'watch', third: 'watches', ing: 'watching', past: 'watched', obj: 'TV', objJa: 'テレビを', ja: '見ます', jaDict: '見る', jaIng: '見ています', group: 'es', ingGroup: 'plain' },
-  { base: 'teach', third: 'teaches', ing: 'teaching', past: 'taught', obj: 'math', objJa: '数学を', ja: '教えます', jaDict: '教える', jaIng: '教えています', group: 'es', ingGroup: 'plain' },
-  { base: 'wash', third: 'washes', ing: 'washing', past: 'washed', obj: 'the dishes', objJa: '皿を', ja: '洗います', jaDict: '洗う', jaIng: '洗っています', group: 'es', ingGroup: 'plain' },
+  { base: 'go', third: 'goes', ing: 'going', past: 'went', pp: 'gone', obj: 'to school', objJa: '学校へ', ja: '行きます', jaDict: '行く', jaIng: '行っています', group: 'es', ingGroup: 'plain' },
+  { base: 'watch', third: 'watches', ing: 'watching', past: 'watched', pp: 'watched', obj: 'TV', objJa: 'テレビを', ja: '見ます', jaDict: '見る', jaIng: '見ています', jaPassive: '見られます', group: 'es', ingGroup: 'plain' },
+  { base: 'teach', third: 'teaches', ing: 'teaching', past: 'taught', pp: 'taught', obj: 'math', objJa: '数学を', ja: '教えます', jaDict: '教える', jaIng: '教えています', jaPassive: '教えられます', group: 'es', ingGroup: 'plain' },
+  { base: 'wash', third: 'washes', ing: 'washing', past: 'washed', pp: 'washed', obj: 'the dishes', objJa: '皿を', ja: '洗います', jaDict: '洗う', jaIng: '洗っています', jaPassive: '洗われます', objPlural: true, group: 'es', ingGroup: 'plain' },
 
   // 三単現 ies（子音字 + y）
-  { base: 'study', third: 'studies', ing: 'studying', past: 'studied', obj: 'English', objJa: '英語を', ja: '勉強します', jaDict: '勉強する', jaIng: '勉強しています', group: 'ies', ingGroup: 'plain' },
-  { base: 'carry', third: 'carries', ing: 'carrying', past: 'carried', obj: 'a bag', objJa: 'かばんを', ja: '運びます', jaDict: '運ぶ', jaIng: '運んでいます', group: 'ies', ingGroup: 'plain' },
+  { base: 'study', third: 'studies', ing: 'studying', past: 'studied', pp: 'studied', obj: 'English', objJa: '英語を', ja: '勉強します', jaDict: '勉強する', jaIng: '勉強しています', jaPassive: '勉強されます', group: 'ies', ingGroup: 'plain' },
+  { base: 'carry', third: 'carries', ing: 'carrying', past: 'carried', pp: 'carried', obj: 'a bag', objJa: 'かばんを', ja: '運びます', jaDict: '運ぶ', jaIng: '運んでいます', jaPassive: '運ばれます', group: 'ies', ingGroup: 'plain' },
 
   // 不規則
-  { base: 'do', third: 'does', ing: 'doing', past: 'did', obj: 'homework', objJa: '宿題を', ja: 'します', jaDict: 'する', jaIng: 'しています', group: 'irregular', ingGroup: 'plain' },
-  { base: 'have', third: 'has', ing: 'having', past: 'had', obj: 'a dog', objJa: '犬を', ja: '飼っています', jaDict: '飼う', jaIng: '飼っています', group: 'irregular', ingGroup: 'drop_e', stative: true }
+  { base: 'do', third: 'does', ing: 'doing', past: 'did', pp: 'done', obj: 'homework', objJa: '宿題を', ja: 'します', jaDict: 'する', jaIng: 'しています', group: 'irregular', ingGroup: 'plain' },
+  { base: 'have', third: 'has', ing: 'having', past: 'had', pp: 'had', obj: 'a dog', objJa: '犬を', ja: '飼っています', jaDict: '飼う', jaIng: '飼っています', group: 'irregular', ingGroup: 'drop_e', stative: true }
 ];
 
 /**
@@ -155,6 +159,73 @@ export const PRONOUNS = [
   { subject: 'we', object: 'us', possessive: 'our', ja: '私たち' },
   { subject: 'they', object: 'them', possessive: 'their', ja: '彼ら' }
 ];
+
+// --- 中3 で使う語 -----------------------------------------------------------
+
+/**
+ * 比較の形。group は比較級・最上級の作り方。
+ *   er        tall → taller / tallest
+ *   double    big  → bigger / biggest（最後の字を重ねる）
+ *   ier       easy → easier / easiest（y を i に変える）
+ *   more      difficult → more difficult / most difficult
+ *   irregular good → better / best
+ *
+ * ja は「〜です」につながる形。than / in の文にそのまま差し込める語だけを入れる。
+ */
+export const COMPARABLES = [
+  { word: 'tall', comparative: 'taller', superlative: 'tallest', ja: '背が高い', group: 'er' },
+  { word: 'old', comparative: 'older', superlative: 'oldest', ja: '年上', group: 'er' },
+  { word: 'long', comparative: 'longer', superlative: 'longest', ja: '長い', group: 'er' },
+  { word: 'fast', comparative: 'faster', superlative: 'fastest', ja: '速い', group: 'er' },
+  { word: 'young', comparative: 'younger', superlative: 'youngest', ja: '若い', group: 'er' },
+  { word: 'small', comparative: 'smaller', superlative: 'smallest', ja: '小さい', group: 'er' },
+
+  { word: 'big', comparative: 'bigger', superlative: 'biggest', ja: '大きい', group: 'double' },
+  { word: 'hot', comparative: 'hotter', superlative: 'hottest', ja: '暑い', group: 'double' },
+
+  { word: 'easy', comparative: 'easier', superlative: 'easiest', ja: 'やさしい', group: 'ier' },
+  { word: 'busy', comparative: 'busier', superlative: 'busiest', ja: 'いそがしい', group: 'ier' },
+  { word: 'happy', comparative: 'happier', superlative: 'happiest', ja: 'うれしい', group: 'ier' },
+
+  { word: 'difficult', comparative: 'more difficult', superlative: 'most difficult', ja: 'むずかしい', group: 'more' },
+  { word: 'beautiful', comparative: 'more beautiful', superlative: 'most beautiful', ja: '美しい', group: 'more' },
+  { word: 'interesting', comparative: 'more interesting', superlative: 'most interesting', ja: 'おもしろい', group: 'more' },
+  { word: 'popular', comparative: 'more popular', superlative: 'most popular', ja: '人気', group: 'more' },
+
+  { word: 'good', comparative: 'better', superlative: 'best', ja: 'よい', group: 'irregular' },
+  { word: 'bad', comparative: 'worse', superlative: 'worst', ja: '悪い', group: 'irregular' }
+];
+
+/** 比べる相手として使う語。than のあとと、in のあとに置く。 */
+export const COMPARE_PLACES = [
+  { text: 'in my class', ja: '私のクラスで' },
+  { text: 'in Japan', ja: '日本で' },
+  { text: 'in the world', ja: '世界で' },
+  { text: 'of the three', ja: '3人の中で' }
+];
+
+/** 現在完了で使う期間。for は長さ、since は始まった時。 */
+export const DURATIONS = [
+  { text: 'three years', ja: '3年間', kind: 'for' },
+  { text: 'ten minutes', ja: '10分間', kind: 'for' },
+  { text: 'a long time', ja: '長い間', kind: 'for' },
+  { text: 'last year', ja: '去年から', kind: 'since' },
+  { text: 'this morning', ja: '今朝から', kind: 'since' },
+  { text: '2020', ja: '2020年から', kind: 'since' }
+];
+
+/** 受動態に使える動詞（「〜されます」と言える動詞だけ）。 */
+export function passiveVerbs() {
+  return VERBS.filter((v) => Boolean(v.jaPassive));
+}
+
+/**
+ * 過去分詞が原形と違う動詞（形を問う問題に使う）。
+ * read / run のように原形と同じ形だと、選択肢に同じ語が2つ並ぶ。
+ */
+export function participleVerbs() {
+  return VERBS.filter((v) => v.pp !== v.base);
+}
 
 // --- 小5 で使う語 -----------------------------------------------------------
 //

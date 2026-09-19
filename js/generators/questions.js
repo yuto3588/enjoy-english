@@ -7,6 +7,7 @@
 
 import { pick, pickWhere, weightedPick, shuffle } from '../lib/rng.js';
 import { finish } from './be.js';
+import { midSentence } from '../lib/problem.js';
 import { VERBS, SUBJECTS, ADJECTIVES, isThirdSingular, jaNegative } from '../data/words.js';
 
 export const SUPPORTED_LEVELS = [4];
@@ -19,17 +20,6 @@ const FORMS_BY_PATTERN = {
   // be動詞の文に do を使ってしまう
   be_vs_do: ['be_question']
 };
-
-/**
- * 文の途中に置くときの主語。
- * He → he のように先頭を小文字にするが、I と人の名前はそのまま。
- * どこに置いても大文字で書く語なので、小文字にすると誤った英語になる。
- */
-function midSentence(text) {
-  if (text === 'I') return text;
-  if (/^(Ken|Yuki)/.test(text)) return text;
-  return text.charAt(0).toLowerCase() + text.slice(1);
-}
 
 const WEIGHTS = [
   ['verb_after_does', 4],

@@ -13,7 +13,16 @@ export const PATTERNS = [
   'be_vs_do',               // be動詞の文に do を使う
   'ing_spelling',           // 現在進行形の綴り
   'pronoun_case',           // 代名詞の格
-  'word_order'              // 語順
+  'word_order',             // 語順
+
+  // --- 小5 ---
+  // 中1と内容は重なるが、解説の文面を分けるために別の名前にしてある
+  //（解説は pattern:reason で引くため、同じ名前だと中1の文面が出てしまう）。
+  'e5_be',                  // am / is / are
+  'e5_article',             // a と an
+  'e5_verb',                // 一般動詞の文（三単現は扱わない）
+  'e5_plural',              // 複数形のつづり
+  'e5_order'                // 語順
 ];
 
 /** 類題を同じ形で出すための細分。数学版の form と同じ役割。 */
@@ -41,7 +50,15 @@ export const FORMS = [
   // Lv5 現在進行形・代名詞・語順
   'ing_plain', 'ing_drop_e', 'ing_double',
   'pronoun_object', 'pronoun_possessive',
-  'word_order_ing'
+  'word_order_ing',
+
+  // 小5
+  'e5_be_adj',           // He ___ happy.
+  'e5_be_role',          // I ___ a student.
+  'e5_article_single',   // This is ___ apple.
+  'e5_verb_base',        // I ___ tennis.
+  'e5_plural_s', 'e5_plural_es', 'e5_plural_ies', 'e5_plural_ves', 'e5_plural_irregular',
+  'e5_order_svo'         // 並べ替え
 ];
 
 /** 入力方式。 */

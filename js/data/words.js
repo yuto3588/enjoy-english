@@ -156,6 +156,45 @@ export const PRONOUNS = [
   { subject: 'they', object: 'them', possessive: 'their', ja: '彼ら' }
 ];
 
+// --- 小5 で使う語 -----------------------------------------------------------
+//
+// 上の辞書から、小5が確実に知っている語だけを取り出す。
+// 別の辞書は作らない。同じ語の綴りが2か所にあると、必ずどちらかがずれる。
+//
+// 複数形のつづりの型（regular / es / ies / ves / irregular）は、
+// すべての型が残るように選んである。型が欠けると、その綴りの問題が作れなくなる。
+// a / an も、両方が十分な数だけ残るようにしてある。
+
+const E5_NOUNS = [
+  'book', 'pen', 'desk', 'dog', 'cat', 'bag', 'ball', 'car',
+  'apple', 'egg', 'orange',
+  'box', 'bus', 'dish',
+  'city', 'baby', 'family',
+  'knife', 'leaf',
+  'man', 'woman', 'child'
+];
+
+const E5_VERBS = [
+  'play', 'like', 'go', 'run', 'swim', 'read', 'sing',
+  'walk', 'study', 'watch', 'wash', 'help', 'make', 'have'
+];
+
+// 小5 では三単現を扱わないので、he / she を主語にする問題は作らない。
+// ただし be動詞（is）では必要なので、主語の一覧そのものには残しておく。
+const E5_SUBJECTS = ['I', 'You', 'He', 'She', 'Ken', 'Yuki', 'We', 'They'];
+
+export function easyNouns() {
+  return NOUNS.filter((n) => E5_NOUNS.includes(n.word));
+}
+
+export function easyVerbs() {
+  return VERBS.filter((v) => E5_VERBS.includes(v.base));
+}
+
+export function easySubjects() {
+  return SUBJECTS.filter((s) => E5_SUBJECTS.includes(s.text));
+}
+
 /** 主語が複数扱いか。 */
 export function isPlural(subject) {
   return subject.person === 'plural';

@@ -207,6 +207,69 @@ const TEMPLATES = {
     `${f.possessive} は「〜の」の形。あとに名詞が要る`,
     '動詞のあとは「〜を」の形',
     `答えは ${f.object}`
+  ],
+
+  // --- 小5 ---
+  // 中1と同じ内容でも、文法用語を使わずに書く。
+  // 「主語」「三人称単数」ではなく、目の前の語をそのまま指して言う。
+
+  'e5_be:am_only_for_i': (f) => [
+    'am を使うのは I のときだけ',
+    `${f.subject} のときは ${f.be}`,
+    `答えは ${f.be}`
+  ],
+  'e5_be:is_for_one': (f) => [
+    'is を使うのは、1人か1つのときだけ',
+    `${f.subject} のときは ${f.be}`,
+    `答えは ${f.be}`
+  ],
+  'e5_be:are_for_many': (f) => [
+    'are を使うのは You と、2人以上のとき',
+    `${f.subject} のときは ${f.be}`,
+    `答えは ${f.be}`
+  ],
+
+  'e5_article:wrong_article': (f) => [
+    f.isAn
+      ? `${f.word} は a, e, i, o, u で始まる`
+      : `${f.word} は a, e, i, o, u 以外で始まる`,
+    f.isAn ? 'そういう語には an' : 'そういう語には a',
+    `答えは ${f.article} ${f.word}`
+  ],
+  'e5_article:one_thing_only': (f) => [
+    `${f.plural} は2つ以上のときの形`,
+    `1つのときは ${f.word} のまま`,
+    `答えは ${f.article} ${f.word}`
+  ],
+
+  'e5_verb:verb_with_s': (f) => [
+    `${f.third} は he や she のときの形`,
+    `${f.subject} のときは s を付けない`,
+    `答えは ${f.base}`
+  ],
+  'e5_verb:wrong_verb': (f, picked) => [
+    f.meanings && f.meanings[picked]
+      ? `${picked} は「${f.meanings[picked]}」という意味`
+      : `${picked} はここには合わない`,
+    `「${f.objJa}${f.ja}」は ${f.base}`,
+    `答えは ${f.base}`
+  ],
+
+  'e5_plural:spelling_rule': (f) => [
+    `${f.naive} ではなく ${f.plural}`,
+    f.rule,
+    `${f.word} → ${f.plural}`
+  ],
+  'e5_plural:still_one': (f) => [
+    `${f.word} は1つのときの形`,
+    `2つ以上になると ${f.plural}`,
+    `答えは ${f.plural}`
+  ],
+
+  'e5_order:japanese_order': (f) => [
+    '日本語は「だれが → なにを → どうする」の順',
+    '英語は「だれが → どうする → なにを」の順',
+    `${f.subject} → ${f.base} → ${f.obj}`
   ]
 };
 

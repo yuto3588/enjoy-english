@@ -7,20 +7,30 @@ import { test, assert, assertEqual, assertDeepEqual } from './runner.js';
 import { createRng } from '../js/lib/rng.js';
 import { generate, patternsFor, formsFor, SUPPORTED_LEVELS } from '../js/generators/index.js';
 import { explanationFor, templateKeys } from '../js/explain.js';
+import { courseFor, readyGrades } from '../js/courses.js';
 
 /** 選択式だけを取り出す（並べ替えは選択肢が「並べる単語」なので意味が違う）。 */
 function onlyChoice(list) {
   return list.filter((p) => p.input === 'choice');
 }
 
+/**
+ * 全学年 × 全レベル × 全 pattern × 全 form の問題をまんべんなく作る。
+ *
+ * 解説のテンプレートは学年をまたいで1つの表に入っているので、
+ * 網羅性も学年をまたいで見る。
+ */
 function allKindsOfProblems(seed = 2468, perKind = 50) {
   const rng = createRng(seed);
   const out = [];
-  for (const level of SUPPORTED_LEVELS) {
-    for (const pattern of patternsFor(level)) {
-      for (const form of formsFor(pattern, level)) {
-        for (let i = 0; i < perKind; i++) {
-          out.push(generate(level, rng, [], { pattern, form }));
+  for (const gradeId of readyGrades()) {
+    const course = courseFor(gradeId);
+    for (const level of course.SUPPORTED_LEVELS) {
+      for (const pattern of course.patternsFor(level)) {
+        for (const form of course.formsFor(pattern, level)) {
+          for (let i = 0; i < perKind; i++) {
+            out.push(course.generate(level, rng, [], { pattern, form }));
+          }
         }
       }
     }

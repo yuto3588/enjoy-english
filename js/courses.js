@@ -9,8 +9,10 @@
 // 選択肢だけ先に見せておくと、あとから足したときに置き場所が変わらない。
 
 import * as j1 from './generators/index.js';
+import * as e5 from './generators/e5/index.js';
 
 const COURSES = {
+  e5,
   j1
 };
 

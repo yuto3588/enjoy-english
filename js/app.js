@@ -66,7 +66,10 @@ const el = {
   remain: document.getElementById('remain'),
   pauseBtn: document.getElementById('pauseBtn'),
   quitBtn: document.getElementById('quitBtn'),
+  tick: document.getElementById('tick'),
+  doneDots: document.getElementById('doneDots'),
   doneCount: document.getElementById('doneCount'),
+  doneNote: document.getElementById('doneNote'),
   homeBtn: document.getElementById('homeBtn'),
   overlay: document.getElementById('overlay'),
   overlayExpr: document.getElementById('overlayExpr'),
@@ -280,13 +283,19 @@ function onCorrect(value) {
   state.origin = null;
   persist();
 
-  // 正解のフィードバックは 0.6 秒の色の変化のみ。
+  // 正解のフィードバック。言葉は出さない（褒め言葉は子供扱いに読まれるため）。
+  // 印と色だけを 0.6 秒動かす。テンポは変えない。
   if (inputOf() === 'arrange') arrange.markOk();
   else choices.markPicked(value);
 
   el.stage.classList.add('flash');
+  el.tick.classList.remove('on');
+  void el.tick.offsetWidth; // 連続で正解しても毎回動かすため、いったん止める
+  el.tick.classList.add('on');
+
   setTimeout(() => {
     el.stage.classList.remove('flash');
+    el.tick.classList.remove('on');
     arrange.clearMarks();
     choices.clearMarks();
     advance();
@@ -405,7 +414,41 @@ function finish() {
 
   // やった問題数だけ。10分の日と60分の日で文言を変えない。
   el.doneCount.textContent = `${state.solved}問`;
+  renderDoneDots(state.solved);
   showScreen('done');
+}
+
+/**
+ * その日に解いた問題を、ひとつずつ積み上げて見せる。
+ *
+ * 数で評価するのではなく、やったことをそのまま置くだけ。
+ * 何問でも同じ見せ方にする（多い日だけ派手にしない）。
+ * 全体で 0.9 秒に収まるよう、問題数に応じて間隔を詰める。
+ */
+function renderDoneDots(count) {
+  const shown = Math.min(count, 120);
+  const step = shown > 0 ? Math.min(70, 900 / shown) : 0;
+
+  // 少ない日でも手応えが見えるよう、数に応じて大きさを変える。
+  const size = shown <= 12 ? 15 : shown <= 30 ? 11 : 8;
+  el.doneDots.style.setProperty('--dot-size', `${size}px`);
+
+  el.doneDots.innerHTML = '';
+  for (let i = 0; i < shown; i++) {
+    const dot = document.createElement('i');
+    dot.className = 'dot';
+    dot.style.animationDelay = `${Math.round(i * step)}ms`;
+    el.doneDots.appendChild(dot);
+  }
+
+  // 数と一言は、積み上がったあとに出す
+  const after = `${Math.round(shown * step) + 250}ms`;
+  for (const node of [el.doneCount, el.doneNote]) {
+    node.style.animation = 'none';
+    void node.offsetWidth;
+    node.style.animation = '';
+    node.style.animationDelay = after;
+  }
 }
 
 function startSession(minutes) {

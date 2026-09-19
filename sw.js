@@ -11,7 +11,7 @@
 // ファイルを増やしたら PRECACHE にも足すこと。
 // test/pwa.test.js が、追加し忘れていないかを見張っている。
 
-const VERSION = 'v2';
+const VERSION = 'v3';
 const CACHE_NAME = `enjoy-english-${VERSION}`;
 
 const PRECACHE = [
@@ -28,6 +28,8 @@ const PRECACHE = [
   './js/timer.js',
   './js/level.js',
   './js/storage.js',
+  './js/profile.js',
+  './js/courses.js',
   './js/lib/rng.js',
   './js/lib/problem.js',
   './js/data/words.js',

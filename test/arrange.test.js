@@ -183,7 +183,8 @@ test('並べ替え: 問題を出している間、画面に正解の文が出て
   try {
     await new Promise((resolve) => {
       frame.addEventListener('load', resolve, { once: true });
-      frame.src = './index.html?level=2';
+      // 学年を指定しないと、初回は学年えらびが出てホームまで進まない
+      frame.src = './index.html?level=2&grade=j1';
     });
     const doc = frame.contentDocument;    // ホーム画面から10分を選んでセッションを始める
     for (let i = 0; i < 100 && !doc.querySelector('.time'); i++) {
